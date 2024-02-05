@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/bulkemail', {
+mongoose.connect('mongodb+srv://keerthana:adpUHGROqfvZmRqZ@cluster0.voqwj13.mongodb.net/bulkemail', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -27,7 +27,8 @@ const Email = mongoose.model('Email', emailSchema);
 // Express Route to Send Bulk Email
 app.post('/send-bulk-email', async (req, res) => {
   try {
-    const { to, subject, body } = req.body;
+    const { to, subject,body } = req.body;
+
 
     // Save email to MongoDB (you might want to add more fields like sender, etc.)
     const newEmail = new Email({ to, subject, body });
@@ -48,11 +49,11 @@ app.post('/send-bulk-email', async (req, res) => {
         from: 'keerthanakk10@yahoo.com', // Replace with your email address
         to, // Replace with the recipient's email address
         subject,
-        body,
+        html:body,
           };
     
 
-    transporter.sendMail(mailOptions, (error) => {
+    transporter.sendMail(mailOptions, (error,info) => {
       if (!error) {
       console.log('Email sent:', info.response);
         res.json({ message: 'Email sent successfully' });
