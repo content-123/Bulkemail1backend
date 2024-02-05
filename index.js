@@ -4,16 +4,19 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
-
+const dotenv = require('dotenv');
+dotenv.config()
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+
 // MongoDB Connection
-mongoose.connect('mongodb+srv://keerthana:adpUHGROqfvZmRqZ@cluster0.voqwj13.mongodb.net/bulkemail', {
+mongoose.connect(process.env.Mongo_url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 
 // Define Email Schema and Model
 const emailSchema = new mongoose.Schema({
