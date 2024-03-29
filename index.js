@@ -18,6 +18,8 @@ mongoose.connect(process.env.Mongo_url, {
 });
 
 
+
+
 // Define Email Schema and Model
 const emailSchema = new mongoose.Schema({
   to: { type: String, required: true },
